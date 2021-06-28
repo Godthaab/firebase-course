@@ -1,6 +1,6 @@
 
 import * as functions from 'firebase-functions';
-import {auth} from "./init";
+import {auth} from './init';
 
 
 
@@ -15,16 +15,16 @@ export function getUserCredentialsMiddleware(req, res, next) {
         auth.verifyIdToken(jwt)
             .then(jwtPayload => {
 
-                 req["uid"] = jwtPayload.uid;
-                 req["admin"] = jwtPayload.admin;
+                 req.uid = jwtPayload.uid;
+                 req.admin = jwtPayload.admin;
 
-                functions.logger.debug(
+                 functions.logger.debug(
                     `Credentials: uid=${jwtPayload.uid}, admin=${jwtPayload.admin}`);
 
-                next();
+                 next();
             })
             .catch(err => {
-                console.log("Error ocurred while validating JWT", err);
+                console.log('Error ocurred while validating JWT', err);
                 next();
             });
 
